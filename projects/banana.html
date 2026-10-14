@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk Support Ticket Management System</title>
+
+    <link rel="stylesheet" href="../frontend/css/style.css">
+    <script src="../frontend/js/script.js" defer></script>
+</head>
+<body>
+    <main>
+        <header>
+            <h1 class="project-main-header">Saba Banana Counting System Using Object Recognition</h1>
+        </header>
+
+        <section id="project-overview">
+            <h2 class="project-main-sub-header">Project Overview</h2>
+            <p>
+                The Helpdesk Support Ticket Management System is a full-stack web application designed to streamline the
+                process of managing support requests. It provides a centralized system for creating, viewing, updating, and
+                deleting support tickets, helping organize issues and making them easier to track and manage. The application
+                was developed using Python and FastAPI for the backend, MySQL for persistent data storage, and HTML, CSS, and
+                JavaScript for the frontend. It integrates a RESTful API with a web-based interface, demonstrating how frontend
+                and backend components communicate to perform CRUD operations and manage application data. This project strengthened
+                my understanding of REST API development, database integration, and full-stack application architecture while
+                providing practical experience in building a functional software solution.
+            </p>
+        </section>
+
+        <section id="objectives">
+            <h2 class="project-main-sub-header">Objectives</h2>
+            <ul>
+                <li>Develop a full-stack web application for managing helpdesk support tickets in a centralized system.</li>
+                <li>Implement CRUD (Create, Read, Update, Delete) operations to support the ticket management lifecycle.</li>
+                <li>Build RESTful API endpoints using FastAPI to handle requests and facilitate communication between the frontend and backend.</li>
+                <li>Integrate a MySQL database to store and manage ticket data persistently.</li>
+                <li>Develop an interactive web interface using HTML, CSS, and JavaScript to make ticket management accessible through a browser.</li>
+                <li>Apply software development principles to build a functional, organized, and maintainable application.</li>
+            </ul>
+        </section>
+
+        <section id="key-features">
+            <h2 class="project-main-sub-header">Key Features</h2>
+            <ul>
+                <li>Create Tickets: Create new support tickets to record issues and support requests.</li>
+                <li>View Tickets: Retrieve and display ticket information through the application.</li>
+                <li>Update Tickets: Modify existing ticket information when changes are needed.</li>
+                <li>Delete Tickets: Remove tickets that are no longer needed.</li>
+                <li>RESTful API Integration: Connect the frontend to backend endpoints for processing ticket management operations.</li>
+                <li>Persistent Data Storage: Store ticket records in a MySQL database so data can be retained between application sessions.</li>
+                <li>Interactive Web Interface: Provide a browser-based interface built with HTML, CSS, and JavaScript for interacting with the system.</li>
+            </ul>
+        </section>
+
+        <section id="technology-stack">
+            <h2 class="project-main-sub-header">Technology Stack</h2>
+            <div class="stack-category">
+                <h3>Backend</h3>
+                <ul>
+                    <li>Python: Core backend programming language.</li>
+                    <li>FastAPI: Framework for building RESTful API endpoints.</li>
+                </ul>
+            </div>
+
+            <div class="stack-category">
+                <h3>Frontend</h3>
+                <ul>
+                    <li>HTML5: Structures the web interface.</li>
+                    <li>CSS3: Handles styling and layout.</li>
+                    <li>JavaScript: Implements client-side interactions and frontend-to-backend communication.</li>
+                </ul>
+            </div>
+
+            <div class="stack-category">
+                <h3>Database</h3>
+                <ul>
+                    <li>MySQL: Relational database for persistent ticket storage.</li>
+                </ul>
+            </div>
+
+            <div class="stack-category">
+                <h3>Architecture and Integration</h3>
+                <ul>
+                    <li>REST API: Enables communication between the frontend and backend using HTTP requests.</li>
+                    <li>CRUD Operations: Provides the core functionality for managing ticket records.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>Architecture Overview</h2>
+            <p>The system follows a layered design that separates the user interface, application logic, and data storage.</p>
+            <div class="architecture-layer">
+                <h3>1. Presentation Layer</h3>
+                <p>
+                    The frontend is built using HTML, CSS, and JavaScript. It provides the user interface for interacting
+                    with support tickets and communicates with the backend through HTTP requests.
+                </p>
+            </div>
+            <div class="architecture-layer">
+                <h3>2. Application Layer</h3>
+                <p>
+                    The backend is developed using Python and FastAPI. It exposes RESTful API endpoints that handle ticket
+                    creation, retrieval, updating, and deletion. This layer processes incoming requests and coordinates access
+                    to the stored ticket data.
+                </p>
+            </div>
+            <div class="architecture-layer">
+                <h3>3. Data Layer</h3>
+                <p>
+                    MySQL serves as the persistent data storage layer. It stores ticket records and allows the application
+                    to retrieve or modify data as requested by the backend.
+                </p>
+            </div>
+            <div id="request-flow">
+                <h3>Request Flow</h3>
+                <p>
+                    When a user performs a ticket management action, the frontend sends a request to the appropriate API
+                    endpoint. The backend processes the request and interacts with the database when necessary. The resulting
+                    response is then returned to the frontend, which updates the interface accordingly.
+                </p>
+            </div>
+        </section>
+
+        <section id="repository-and-documentation">
+            <a href="https://github.com/ryi3l/Helpdesk-Ticket-System-Python" class="contact-links" target="blank" rel="noopener">Repository Link</a>
+        </section>
+
+        <section id="images">
+            <img src="../frontend/assets/projects/helpdesk/create-ticket.png" alt="Create Ticket">
+            <img src="../frontend/assets/projects/helpdesk/ticket-list.png" alt="Ticket List">
+            <img src="../frontend/assets/projects/helpdesk/update-ticket.png" alt="Update Ticket">
+        </section>
+
+        <div id="enlarged-image-container">
+            <img id="enlarged-image" src="" alt="">
+        </div>
+
+        <a href="../frontend/index.html">BACK</a>
+
+    </main>
+
+</body>
+</html>

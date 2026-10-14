@@ -1,0 +1,799 @@
+/* =========================================================
+   Design tokens
+   ========================================================= */
+:root {
+    color-scheme: dark;
+
+    --bg: #0b0f17;
+    --bg-elevated: #0f1522;
+    --surface: #141b2b;
+    --border: #232d42;
+
+    --text: #e8ecf4;
+    --text-muted: #9aa6bd;
+
+    --accent: #38bdf8;
+    --accent-strong: #7dd3fc;
+    --accent-ink: #04121d;
+
+    --radius: 14px;
+    --container: 1100px;      /* index content width */
+    --content: 960px;         /* project page content width */
+    --gutter: clamp(1.25rem, 5vw, 3rem);
+    --col-gap: 1.5rem;
+    --pad-y: clamp(4rem, 12vh, 6rem);
+
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* =========================================================
+   Base (both pages)
+   ========================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;   /* only affects index; project pages have no snap points */
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul {
+    margin: 0;
+}
+
+.description {
+    color: var(--text-muted);
+}
+
+/* Section headings on both pages: small accent label + a rule */
+.info-self-header,
+.contacts-main-header,
+#technical-skills > h2,
+main:not(#home) > section > h2 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.info-self-header::after,
+.contacts-main-header::after,
+#technical-skills > h2::after,
+main:not(#home) > section > h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--border);
+}
+
+/* Buttons */
+.main-button {
+    display: inline-block;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0.85rem 1.6rem;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    background-color: var(--accent);
+    color: var(--accent-ink);
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+                color 0.2s ease, transform 0.2s ease;
+}
+
+.main-button:hover {
+    background-color: var(--accent-strong);
+    border-color: var(--accent-strong);
+    transform: translateY(-2px);
+}
+
+#get-in-touch-button {
+    background-color: transparent;
+    border-color: var(--border);
+    color: var(--text);
+}
+
+#get-in-touch-button:hover {
+    background-color: transparent;
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Link cards (Contacts on index, Repository on project page) */
+.contact-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 11rem;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-links:hover {
+    border-color: var(--accent);
+    background-color: rgba(56, 189, 248, 0.06);
+}
+
+/* Arrow only on external https links, not mailto */
+.contact-links[href^="https"]::after {
+    content: "\2197";
+    margin-left: auto;
+    color: var(--accent);
+}
+
+.main-button:focus-visible,
+.contact-links:focus-visible,
+main:not(#home) > a:focus-visible {
+    outline: 3px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   INDEX PAGE  (everything scoped to #home)
+   <main id="home"> is a grid: flexible gutters + centered column.
+   ========================================================= */
+#home {
+    display: grid;
+    grid-template-columns:
+        minmax(var(--gutter), 1fr)
+        minmax(0, var(--container))
+        minmax(var(--gutter), 1fr);
+}
+
+/* Full-width screens */
+#home > header,
+#projects-section,
+#contacts-section {
+    grid-column: 1 / -1;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-block: var(--pad-y);
+    padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2));
+    scroll-snap-align: start;
+}
+
+/* ---- Hero ---- */
+#home > header {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    gap: 0.875rem;
+    background:
+        radial-gradient(60rem 30rem at 85% -10%, rgba(56, 189, 248, 0.14), transparent 60%),
+        radial-gradient(40rem 25rem at -10% 110%, rgba(129, 140, 248, 0.10), transparent 60%),
+        var(--bg);
+}
+
+#home > header h1,
+#home > header p {
+    flex: 0 0 100%;
+}
+
+#my-name {
+    font-size: clamp(2.75rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+#role {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+#introduction {
+    max-width: 60ch;
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+/* ---- About / Skills / Education cards (stacked on mobile) ---- */
+#about-section,
+#technical-skills,
+#education-section {
+    grid-column: 2;
+    margin-bottom: 1.5rem;
+}
+
+#about-section {
+    margin-top: var(--pad-y);
+    scroll-snap-align: start;
+    scroll-margin-top: var(--pad-y);
+}
+
+#education-section {
+    margin-bottom: var(--pad-y);
+}
+
+#about-section,
+#technical-skills,
+#education-section,
+.project-card {
+    padding: 1.75rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+#about-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#about-section .info-self-header {
+    align-self: stretch;
+}
+
+#about-section .description {
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+}
+
+#about-section .main-button {
+    margin-top: auto;               /* pins the button to the card bottom */
+}
+
+#education-section .description:first-of-type {
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+/* Skills: label + pill tags */
+.skill-category + .skill-category {
+    margin-top: 1.1rem;
+}
+
+.skill-category h3 {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.skill-category ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.skill-category li {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    background-color: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 999px;
+}
+
+/* ---- Projects ---- */
+#projects-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    align-content: center;
+    background-color: var(--bg-elevated);
+    border-block: 1px solid var(--border);
+    counter-reset: project;
+}
+
+#projects-section .info-self-header {
+    grid-column: 1 / -1;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-card {
+    position: relative;             /* anchor for the stretched link */
+    counter-increment: project;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.project-card::before {
+    content: "0" counter(project);
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+}
+
+.project-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    transform: translateY(-4px);
+}
+
+.project-header {
+    display: block;
+    margin-bottom: 1.25rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text);
+    text-decoration: none;
+}
+
+/* Stretched link: makes the whole card clickable */
+.project-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+}
+
+.project-card:hover .project-header {
+    color: var(--accent-strong);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.project-header:focus-visible {
+    outline: none;
+}
+
+.project-card:has(.project-header:focus-visible) {
+    outline: 3px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
+.project-description {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    list-style: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.project-description li {
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.project-description li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent);
+}
+
+/* ---- Contacts ---- */
+#contacts-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 1rem;
+}
+
+.contacts-main-header {
+    flex: 0 0 100%;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================================
+   PROJECT PAGES  (everything scoped to main:not(#home))
+   ========================================================= */
+main:not(#home) {
+    width: min(100% - (2 * var(--gutter)), var(--content));
+    margin-inline: auto;
+    padding-bottom: 5rem;
+}
+
+main:not(#home) > header {
+    padding-block: clamp(5.5rem, 14vh, 8rem) 1rem;   /* room for the fixed BACK button */
+}
+
+.project-main-header {
+    max-width: 22ch;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+main:not(#home) > section {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+#project-overview p {
+    max-width: 75ch;
+    line-height: 1.75;
+    color: var(--text-muted);
+}
+
+/* Objectives */
+#objectives ul {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    list-style: none;
+    color: var(--text-muted);
+}
+
+#objectives li {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+#objectives li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--accent);
+}
+
+/* Key features: numbered list in two columns */
+#key-features ul {
+    columns: 2;
+    column-gap: 3rem;
+    padding: 0;
+    list-style: none;
+    counter-reset: feature;
+}
+
+#key-features li {
+    counter-increment: feature;
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+    break-inside: avoid;
+    color: var(--text-muted);
+    transition: border-color 0.2s ease;
+}
+
+#key-features li::before {
+    content: counter(feature, decimal-leading-zero);
+    padding-top: 0.15rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+}
+
+#key-features li:hover {
+    border-top-color: var(--accent);
+}
+
+/* Technology stack: one spec-sheet panel */
+.stack-category {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 0.75rem 2rem;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+}
+
+.stack-category + .stack-category {
+    margin-top: -1px;
+}
+
+.stack-category:first-of-type {
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.stack-category:last-of-type {
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.stack-category h3 {
+    padding-top: 0.15rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.stack-category ul {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0;
+    list-style: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Architecture: stacked layer cards + Request Flow callout */
+#architecture {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#architecture > p {
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.architecture-layer {
+    padding: 1.4rem 1.5rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+}
+
+.architecture-layer h3,
+#request-flow h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.3;
+    color: var(--text);
+}
+
+.architecture-layer p,
+#request-flow p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+#request-flow {
+    margin-top: 0.5rem;
+    padding: 1.4rem 1.5rem;
+    background-color: rgba(56, 189, 248, 0.06);
+    border: 1px dashed rgba(56, 189, 248, 0.4);
+    border-radius: var(--radius);
+}
+
+#request-flow h3 {
+    color: var(--accent-strong);
+}
+
+/* Screenshots */
+#images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+}
+
+#images::before {
+    content: "Screenshots";
+    grid-column: 1 / -1;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+#images img {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+#images img:hover {
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Screenshot lightbox (your original rules, plus z-index and polish) */
+#enlarged-image-container {
+    display: none;
+}
+
+#enlarged-image-container.active {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#enlarged-image {
+    max-height: 85vh;
+    max-width: 90vw;
+    border-radius: var(--radius);
+    cursor: default;
+}
+
+/* BACK link: pinned top-left */
+main:not(#home) > a {
+    position: fixed;
+    top: 1rem;
+    left: max(1rem, calc((100% - var(--content)) / 2));
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: var(--text);
+    background-color: rgba(20, 27, 43, 0.85);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+main:not(#home) > a::before {
+    content: "\2190";
+    color: var(--accent);
+}
+
+main:not(#home) > a:hover {
+    border-color: var(--accent);
+    color: var(--accent-strong);
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (min-width: 801px) {
+    /* Index: gutter | left 58% | gap | right 42% | gutter */
+    #home {
+        grid-template-columns:
+            minmax(var(--gutter), 1fr)
+            minmax(0, calc((var(--container) - var(--col-gap)) * 0.58))
+            var(--col-gap)
+            minmax(0, calc((var(--container) - var(--col-gap)) * 0.42))
+            minmax(var(--gutter), 1fr);
+    }
+
+    #home > header     { grid-row: 1; }
+    #about-section     { grid-column: 2; grid-row: 2 / span 2; margin-block: var(--pad-y); }
+    #technical-skills  { grid-column: 4; grid-row: 2; margin-block: var(--pad-y) 0; }
+    #education-section { grid-column: 4; grid-row: 3; margin-block: 1.5rem var(--pad-y); }
+    #projects-section  { grid-row: 4; }
+    #contacts-section  { grid-row: 5; }
+}
+
+@media (min-width: 961px) {
+    #projects-section {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    #key-features ul {
+        columns: 1;
+    }
+
+    .stack-category {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 560px) {
+    #about-section,
+    #technical-skills,
+    #education-section,
+    .project-card {
+        padding: 1.25rem;
+    }
+
+    .architecture-layer,
+    #request-flow {
+        padding: 1.15rem;
+    }
+
+    #home > header .main-button,
+    #contacts-section .contact-links {
+        flex: 1 1 100%;
+    }
+}
+
+/* =========================================================
+   Animations (CSS only). `translate` is used instead of
+   `transform` so they don't fight the hover transforms.
+   ========================================================= */
+@keyframes rise {
+    from { opacity: 0; translate: 0 28px; }
+    to   { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    /* On page load: hero (staggered) and project page title */
+    #home > header > *,
+    .project-main-header {
+        animation: rise 0.7s var(--ease) both;
+    }
+    #home > header > :nth-child(2) { animation-delay: 100ms; }
+    #home > header > :nth-child(3) { animation-delay: 200ms; }
+    #home > header > :nth-child(4) { animation-delay: 300ms; }
+    #home > header > :nth-child(5) { animation-delay: 400ms; }
+}
+
+/* On scroll: elements fade up as they enter the screen */
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        #about-section,
+        #technical-skills,
+        #education-section,
+        #projects-section > *,
+        #contacts-section > *,
+        main:not(#home) > section {
+            animation: rise linear both;
+            animation-timeline: view();
+            animation-range: entry 0% entry 40%;
+        }
+
+        #technical-skills             { animation-range: entry 6% entry 46%; }
+        #education-section            { animation-range: entry 12% entry 52%; }
+        .project-card:nth-of-type(2)  { animation-range: entry 8% entry 48%; }
+        .project-card:nth-of-type(3)  { animation-range: entry 16% entry 56%; }
+        .contact-links:nth-of-type(2) { animation-range: entry 8% entry 48%; }
+        .contact-links:nth-of-type(3) { animation-range: entry 16% entry 56%; }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .main-button,
+    .project-card,
+    .contact-links,
+    #images img,
+    #key-features li,
+    main:not(#home) > a {
+        transition: none;
+    }
+
+    .main-button:hover,
+    .project-card:hover {
+        transform: none;
+    }
+}
